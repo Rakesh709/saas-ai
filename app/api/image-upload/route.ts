@@ -5,6 +5,8 @@ import { v2 as cloudinary } from 'cloudinary';
 
 import { auth } from '@clerk/nextjs/server'
 import { error } from 'console';
+import { resolve } from 'path';
+import { rejects } from 'assert';
 
 
 // Configuration
@@ -60,7 +62,24 @@ export async function POST(request: NextRequest){
     const { userId } = await auth()
 
     if (!userId) {
-        return NextResponse.json({})
+        return NextResponse.json({error:"Unauthorized"},{status:401})
+    }
+    try{
+            const formData = await request.formData();
+            const file = formData.get("file") as File | null
+
+            if(!file){
+                return NextResponse.json({error:"File Not Found"},{status:400})
+            }
+
+            const bytes=  await file.arrayBuffer()
+            const buffer= Buffer.from(bytes)
+            // from the above 2 line of code you can upload anything anywhere 
+
+            
+
+    }catch{
+
     }
 
 }
