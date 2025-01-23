@@ -76,7 +76,14 @@ export async function POST(request: NextRequest){
             const buffer= Buffer.from(bytes)
             // from the above 2 line of code you can upload anything anywhere 
 
-            
+            await new Promise<CloudinaryUploadResult>(
+                (resolve,rejects) =>{
+                    cloudinary.uploader.upload_stream(
+                        {folder:"next-cloudinary-upload"},
+                        // inside the folder
+                    )
+                }
+            )
 
     }catch{
 
