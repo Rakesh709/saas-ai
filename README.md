@@ -44,3 +44,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 # API convention
 
 - under api section video folder then route.ts is fixed, so route is api/video
+
+# next next.cloudinary for ui 
+- https://next.cloudinary.dev/installation
