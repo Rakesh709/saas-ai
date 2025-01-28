@@ -12,9 +12,33 @@ const socialFormats = {
   "Facebook Cover (205:78)": { width: 820, height: 312, aspectRatio: "205:78" },
 };
 
+type SocialFormat = keyof typeof socialFormats;
+//The keyof operator takes an object type and produces a string or numeric literal union of its keys
+
 
 
 function SocialShare() {
+  const [uploadedImage, setUploadedImage] = useState<string |null>(null);
+
+  const [selectedFormat, setSelectedFormat] = useState<SocialFormat>("Instagram Square (1:1)");
+
+  const [isUploading, setIsUploading] = useState(false)
+
+  const [isTransforming,setIsTransforming] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null)
+
+
+  useEffect(()=>{
+    if(uploadedImage){
+      setIsTransforming(true)
+    }
+  },[selectedFormat,uploadedImage])
+
+  //handle file upload 
+  const handleFileUpload = async(event:React.ChangeEvent<HTMLInputElement>) =>{
+    const file = event.target.files?.[0];
+  }
+
   return <div>Im on social share pages</div>;
 }
 
