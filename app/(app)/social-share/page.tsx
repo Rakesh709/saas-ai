@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { CldImage } from "next-cloudinary";
+import { blob } from "stream/consumers";
 
 const socialFormats = {
   "Instagram Square (1:1)": { width: 1080, height: 1080, aspectRatio: "1:1" },
@@ -63,6 +64,29 @@ function SocialShare() {
       setIsUploading(false);
     }
   };
+
+
+  // handling download images
+  const handleDownload = ()=>{
+    if(!imageRef.current) return;
+
+    fetch(imageRef.current.src)
+    .then((response) => response.blob())
+    .then((blob)=>{
+      const url=window.URL.createObjectURL(blob)
+      const link = document.createElement("a");
+      link.href=url;
+      link.download= `${selectedFormat.replace(/\s+/g,"_").toLowerCase()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    })
+
+  }
+
+  // blob is the binary object
 
   return <div>Im on social share pages</div>;
 }
